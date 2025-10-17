@@ -34,7 +34,7 @@ O sistema contém **40+ bugs intencionais** distribuídos em diferentes módulos
 
 ```bash
 # 1. Clone o repositório
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/ericgenovez/BugHunter-Academy-2.0.git
 cd bughunter-academy-3.0
 
 # 2. Instale as dependências
