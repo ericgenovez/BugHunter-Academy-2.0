@@ -43,6 +43,7 @@ export default function Reports() {
     toast({
       title: 'Bug reportado',
       description: 'Seu relatório foi salvo com sucesso',
+      variant: 'secondary'
     });
 
     setFormData({
@@ -58,7 +59,7 @@ export default function Reports() {
   const filteredReports = severityFilter === 'all' ? [] : bugReports;
 
   // Bug intencional: ordenação de lista inversa
-  const sortedReports = [...filteredReports].reverse();
+  const sortedReports = [...filteredReports].sort();
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {

@@ -13,15 +13,14 @@
 
 Este sistema gamificado foi desenvolvido para **capacitar e avaliar o raciocínio crítico** de novos analistas um **ambiente simulado realista**, inspirado no dia a dia de grandes fábricas de software.
 
-O sistema contém **40+ bugs intencionais** distribuídos em diferentes módulos,  **Bug Hunter Academy 2.0** permite que o QA pratique análise de comportamento, identificação de falhas, documentação detalhada e priorização de defeitos, de forma prática e interativa.
+O sistema contém **30+ bugs intencionais** distribuídos em diferentes módulos,  **Bug Hunter Academy 2.0** permite que o QA pratique análise de comportamento, identificação de falhas, documentação detalhada e priorização de defeitos, de forma prática e interativa.
 
 ### ✨ Características
 
 - 🎮 **Sistema de Gamificação**: XP, níveis (Trainee → Sênior), missões e ranking
-- 🎯 **5 Módulos de Treinamento**: Cada um com bugs específicos e desafios únicos
-- 🔍 **40+ Bugs Intencionais**: De simples a complexos, cobrindo UI, UX, validações, APIs e lógica
+- 🎯 **4 Módulos de Treinamento**: Cada um com bugs específicos e desafios únicos
+- 🔍 **30+ Bugs Intencionais**: De simples a complexos, cobrindo UI, UX, validações, APIs e lógica
 - 📊 **Sistema de Relatórios**: Documente bugs encontrados com severidade e passos para reproduzir
-- 🏆 **Desafios Avançados**: Para QAs experientes que buscam bugs mais sutis
 
 ## 🚀 Instalação e Execução
 
@@ -88,11 +87,6 @@ npm run preview
 - Sistema de documentação de bugs
 - Campos: título, descrição, severidade, passos
 - **Bugs implementados**: 7
-
-### 6. 🏆 Desafios Avançados
-- Bugs sutis e complexos
-- Inconsistências de dados e lógica
-- **Bugs implementados**: 6+
 
 ## 🎓 Como Usar (Para QAs em Treinamento)
 

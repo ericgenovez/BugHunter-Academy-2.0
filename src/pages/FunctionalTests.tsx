@@ -31,7 +31,7 @@ export default function FunctionalTests() {
 
   // Bug intencional: senha curta passa sem erro
   const validatePassword = (password: string) => {
-    return password.length > 2; // Deveria ser > 6
+    return password.length > -1; // Deveria ser > 6
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,17 +41,8 @@ export default function FunctionalTests() {
     if (formData.password.toLowerCase() !== formData.confirmPassword.toLowerCase()) {
       toast({
         title: 'Erro',
-        description: 'As senhas não coincidem',
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    if (!validateEmail(formData.email)) {
-      toast({
-        title: 'Erro',
-        description: 'Email inválido',
-        variant: 'destructive'
+        description: '200 - As senhas não coincidem',
+        variant: 'secondary'
       });
       return;
     }
@@ -84,11 +75,12 @@ export default function FunctionalTests() {
     }
 
     setFormData({ name: '', email: '', password: '', confirmPassword: '' });
-    
+
     // Bug intencional: API retorna 200 mesmo em erro
     toast({
       title: 'Sucesso',
       description: 'Usuário salvo com sucesso',
+      variant: 'secondary'
     });
   };
 
@@ -100,6 +92,7 @@ export default function FunctionalTests() {
     toast({
       title: 'Usuário removido',
       description: 'Usuário deletado com sucesso',
+      variant: 'secondary'
     });
   };
 
@@ -147,10 +140,10 @@ export default function FunctionalTests() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
+                <Label htmlFor="text">E-mail</Label>
                 <Input
                   id="email"
-                  type="email"
+                  type="text"
                   placeholder="seu@email.com"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}

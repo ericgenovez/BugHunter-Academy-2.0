@@ -17,14 +17,14 @@ export default function Missions() {
     // Bug intencional: ícone de dificuldade invertido
     if (difficulty === 'easy') return 'destructive';
     if (difficulty === 'medium') return 'warning';
-    return 'success';
+    return 'secondary';
   };
 
   const getDifficultyLabel = (difficulty: string) => {
     // Bug intencional: labels invertidas
-    if (difficulty === 'easy') return 'Difícil';
+    if (difficulty === 'easy') return 'Fácil';
     if (difficulty === 'medium') return 'Média';
-    return 'Fácil';
+    return 'Difícil';
   };
 
   const handleCompleteMission = (missionId: string, xp: number) => {

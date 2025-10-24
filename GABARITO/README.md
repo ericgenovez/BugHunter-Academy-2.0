@@ -8,13 +8,12 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 
 ## 📊 RESUMO GERAL
 
-- **Total de bugs**: 40+
+- **Total de bugs**: 30+
 - **Distribuição**:
   - Painel de Missões: 5 bugs
   - Testes Funcionais: 9 bugs
   - API Tester: 8 bugs
   - Relatórios de Bugs: 7 bugs
-  - Desafios Avançados: 6 bugs
   - Sistema de Gamificação: 3 bugs
   - Layout e Navegação: 2 bugs
 
@@ -82,9 +81,9 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 - **Localização**: `src/pages/FunctionalTests.tsx` - função `validateEmail`
 - **Descrição**: Aceita qualquer string com "@" como email válido
 - **Comportamento esperado**: Validar formato completo (usuario@dominio.com)
-- **Comportamento atual**: Aceita "a@", "@@@@", "teste@" como válidos
+- **Comportamento atual**: Aceita "a@a", "teste@aaa" como válidos
 - **Como reproduzir**:
-  1. Tentar cadastrar usuário com email "teste@"
+  1. Tentar cadastrar usuário com email "teste@teste"
   2. Sistema aceita como válido
 
 ### Bug #7: Senha curta aceita
@@ -97,7 +96,7 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
   1. Cadastrar usuário com senha "abc"
   2. Sistema aceita
 
-### Bug #8: Botão ativo com campos vazios
+### Bug #8: Submit com campos vazios
 - **Severidade**: Média
 - **Localização**: `src/pages/FunctionalTests.tsx` - botão submit
 - **Descrição**: Botão "Salvar" está sempre habilitado
@@ -190,13 +189,13 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 ### Bug #17: Header incorreto para /reports
 - **Severidade**: Média
 - **Localização**: `src/pages/ApiTester.tsx` - endpoint /reports
-- **Descrição**: Endpoint exige header "X-Custom-Auth" que não está documentado
-- **Comportamento esperado**: Funcionar sem header especial ou documentar requisito
-- **Comportamento atual**: Retorna 401 sempre
+- **Descrição**: Endpoint exige header "X-Custom-Auth" que não está documentado, Toast sempre verde
+- **Comportamento esperado**: Funcionar sem header especial ou documentar requisito, toast deveria ser vermelho
+- **Comportamento atual**: Retorna 401 sempre e Toast sempre verde
 - **Como reproduzir**:
   1. GET /reports
   2. Receber erro 401
-
+  3. Analisar Toast
 ### Bug #18: Campo timestamp undefined
 - **Severidade**: Baixa
 - **Localização**: `src/pages/ApiTester.tsx` - mockResponse
@@ -214,7 +213,7 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 - **Comportamento esperado**: Status 404
 - **Comportamento atual**: Status 200 com mensagem de erro
 - **Como reproduzir**:
-  1. Tentar endpoint que não existe
+  1. Tentar endpoint que não existe /dashboard
   2. Observar status 200
 
 ### Bug #20: Body do request ignorado
@@ -241,10 +240,10 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 
 ### Bug #22: Timeout simulado de 3 segundos
 - **Severidade**: Baixa
-- **Localização**: `src/pages/ApiTester.tsx` - setTimeout(3000)
-- **Descrição**: Delay artificial de 3s em todas requisições
+- **Localização**: `src/pages/ApiTester.tsx` - setTimeout(5000)
+- **Descrição**: Delay artificial de 5s em todas requisições
 - **Comportamento esperado**: Resposta instantânea em mock
-- **Comportamento atual**: 3 segundos de espera
+- **Comportamento atual**: 5 segundos de espera
 - **Como reproduzir**: Fazer qualquer requisição
 
 ---
@@ -277,20 +276,20 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 - **Localização**: `src/pages/Reports.tsx` - re-render
 - **Descrição**: Novo bug não aparece na lista até recarregar página
 - **Comportamento esperado**: Lista atualizar automaticamente
-- **Comportamento atual**: Requer refresh manual
+- **Comportamento atual**: Precisa filtrar por algum para recarregar a listagem
 - **Como reproduzir**:
   1. Adicionar novo report
   2. Lista permanece vazia/desatualizada
 
-### Bug #26: Filtro sempre retorna vazio
+### Bug #26: Filtro sempre retorna vazio por "todos"
 - **Severidade**: Alta
 - **Localização**: `src/pages/Reports.tsx` - filteredReports
-- **Descrição**: Filtro de severity sempre retorna array vazio
-- **Comportamento esperado**: Filtrar corretamente por severity
+- **Descrição**: Filtro de "Todos" sempre retorna array vazio
+- **Comportamento esperado**: Filtrar corretamente por "Todos"
 - **Comportamento atual**: `severityFilter === 'all' ? [] : bugReports`
 - **Como reproduzir**:
   1. Criar alguns reports
-  2. Aplicar filtro
+  2. Aplicar filtro de "todos"
   3. Lista fica vazia
 
 ### Bug #27: Ordenação inversa
@@ -298,7 +297,7 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 - **Localização**: `src/pages/Reports.tsx` - sortedReports
 - **Descrição**: Lista ordenada do mais antigo para o mais novo
 - **Comportamento esperado**: Mais recente primeiro
-- **Comportamento atual**: .reverse() inverte a ordem errada
+- **Comportamento atual**: Mais antigo por primeiro
 - **Como reproduzir**: Ver lista de reports
 
 ### Bug #28: Data salva um dia adiantada
@@ -321,55 +320,9 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 
 ---
 
-## 🏆 DESAFIOS AVANÇADOS
-
-### Bug #30: Status "Aprovado" em vermelho
-- **Severidade**: Baixa
-- **Localização**: `src/pages/Challenges.tsx` - getStatusColor
-- **Descrição**: Status verde exibido com cor vermelha (destrutiva)
-- **Comportamento esperado**: Aprovado = verde/success
-- **Comportamento atual**: Aprovado = vermelho/destructive
-- **Como reproduzir**: Ver cards de desafios
-
-### Bug #31: Botão "Ver Detalhes" não funciona
-- **Severidade**: Média
-- **Localização**: `src/pages/Challenges.tsx` - Button onClick
-- **Descrição**: Botão não tem handler, não faz nada
-- **Comportamento esperado**: Abrir modal ou navegar
-- **Comportamento atual**: Nenhuma ação
-- **Como reproduzir**: Clicar no botão
-
-### Bug #32: Dados exportados truncados
-- **Severidade**: Média (conceitual - feature não implementada)
-- **Descrição**: Se existisse export CSV, dados viriam truncados
-- **Como testar**: Feature não existe, bug conceitual
-
-### Bug #33: Ranking com nomes duplicados
-- **Severidade**: Baixa (conceitual - ranking não implementado)
-- **Descrição**: Se existisse ranking, teria nomes repetidos
-- **Como testar**: Feature não existe, bug conceitual
-
-### Bug #34: Campos perdem dados ao navegar
-- **Severidade**: Média
-- **Localização**: Navegação entre páginas
-- **Descrição**: Formulários não mantêm estado ao sair e voltar
-- **Comportamento esperado**: Preservar dados não salvos (ou avisar)
-- **Comportamento atual**: Dados perdidos
-- **Como reproduzir**:
-  1. Preencher formulário parcialmente
-  2. Navegar para outra página
-  3. Voltar - dados perdidos
-
-### Bug #35: API altera dados errados
-- **Severidade**: Alta (conceitual)
-- **Descrição**: Operações PUT/DELETE afetariam registros errados
-- **Como testar**: Simular em API Tester
-
----
-
 ## 🎮 SISTEMA DE GAMIFICAÇÃO
 
-### Bug #36: XP não atualiza automaticamente
+### Bug #30: XP não atualiza automaticamente
 - **Severidade**: Alta
 - **Localização**: `src/contexts/GameContext.tsx` - addXP
 - **Descrição**: XP só atualiza após 5 segundos (setTimeout)
@@ -379,7 +332,7 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
   1. Completar missão
   2. XP não atualiza imediatamente
 
-### Bug #37: XP exibido incorreto no header
+### Bug #31: XP exibido incorreto no header
 - **Severidade**: Baixa
 - **Localização**: `src/components/Layout.tsx` - display XP
 - **Descrição**: Exibe `xp + 10` ao invés de `xp`
@@ -387,7 +340,7 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 - **Comportamento atual**: 10 pontos a mais
 - **Como reproduzir**: Ver header - XP sempre +10
 
-### Bug #38: XP negativo não tratado
+### Bug #32: XP negativo não tratado
 - **Severidade**: Média (conceitual)
 - **Descrição**: Sistema não impede XP negativo
 - **Comportamento esperado**: XP mínimo = 0
@@ -398,13 +351,13 @@ Este documento contém a lista completa de todos os bugs intencionais implementa
 
 ## 🎨 LAYOUT E NAVEGAÇÃO
 
-### Bug #39: Easter egg - clicar 5x no logo
+### Bug #33: Easter egg - clicar 5x no logo
 - **Severidade**: Baixa (intencional/easter egg)
 - **Localização**: `src/components/Layout.tsx` - handleLogoClick
 - **Descrição**: Clicar 5x no logo mostra alert "Você quebrou o sistema!"
 - **Como reproduzir**: Clicar 5x no logo do header
 
-### Bug #40: Contador de progresso incorreto no dashboard
+### Bug #34: Contador de progresso incorreto no dashboard
 - **Severidade**: Média
 - **Localização**: `src/pages/Dashboard.tsx`
 - **Descrição**: progressPercentage adiciona +15 ao valor correto

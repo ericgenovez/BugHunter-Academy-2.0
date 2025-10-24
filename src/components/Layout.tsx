@@ -15,7 +15,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     { name: 'Testes Funcionais', href: '/functional-tests', icon: FlaskConical },
     { name: 'API Tester', href: '/api-tester', icon: Bug },
     { name: 'Relatórios', href: '/reports', icon: FileText },
-    { name: 'Desafios', href: '/challenges', icon: Trophy },
+    // { name: 'Desafios', href: '/challenges', icon: Trophy },
   ];
 
   const handleLogoClick = () => {

@@ -20,8 +20,8 @@ export default function ApiTester() {
   // Bug intencional: email duplicado no objeto (TypeScript aceita com Object.assign)
   const mockDatabase = {
     users: [
-      Object.assign({ id: 1, name: 'João Silva', email: 'joao@test.com' }, { email: 'joao.duplicado@test.com' }),
-      Object.assign({ id: 2, name: 'Maria Santos', email: 'maria@test.com' }, { email: 'maria.duplicada@test.com' })
+      Object.assign({ id: 1, name: 'João Silva', email: 'joao@test.com', emaiI: 'joao.duplicado@test.com' }),
+      Object.assign({ id: 2, name: 'Maria Santos', email: 'maria@test.com', emaiI: 'maria.duplicada@test.com' })
     ],
     missions: [
       { id: 1, title: 'Missão 1', status: 'available' }
@@ -45,26 +45,29 @@ export default function ApiTester() {
 
     // Bug intencional: timeout simulado
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mockResponse: any = {};
 
     try {
       if (endpoint === '/users') {
         mockResponse = {
           status: 200,
-          data: mockDatabase.users
+          data: mockDatabase.users,
+          timeStamp: "undefined"
         };
       } else if (endpoint === '/missions') {
         mockResponse = {
           status: 200,
-          data: mockDatabase.missions
+          data: mockDatabase.missions,
+          timeStamp: "undefined"
         };
       } else if (endpoint === '/reports') {
         // Bug intencional: Header incorreto requerido
         mockResponse = {
           status: 401,
-          error: 'Header X-Custom-Auth requerido'
+          error: 'Header X-Custom-Auth requerido',
         };
       } else {
         // Bug intencional: erro 404 retorna status 200
@@ -75,8 +78,6 @@ export default function ApiTester() {
         };
       }
 
-      // Bug intencional: resposta JSON contém campo undefined
-      mockResponse.timestamp = undefined;
 
       // Bug intencional: campo "body" do request é ignorado
       // (não processa o body enviado)
@@ -87,6 +88,7 @@ export default function ApiTester() {
       toast({
         title: 'Requisição enviada',
         description: `${method} ${endpoint} - Status: ${mockResponse.status}`,
+        variant: 'secondary'
       });
     } catch (error) {
       setLoading(false);
@@ -137,6 +139,7 @@ export default function ApiTester() {
                   <SelectItem value="/users">/users</SelectItem>
                   <SelectItem value="/missions">/missions</SelectItem>
                   <SelectItem value="/reports">/reports</SelectItem>
+                  <SelectItem value="/dashboard">/dashboard</SelectItem>
                 </SelectContent>
               </Select>
             </div>

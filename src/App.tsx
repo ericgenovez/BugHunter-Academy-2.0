@@ -10,7 +10,7 @@ import Missions from "./pages/Missions";
 import FunctionalTests from "./pages/FunctionalTests";
 import ApiTester from "./pages/ApiTester";
 import Reports from "./pages/Reports";
-import Challenges from "./pages/Challenges";
+// import Challenges from "./pages/Challenges";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,7 +29,7 @@ const App = () => (
               <Route path="/functional-tests" element={<FunctionalTests />} />
               <Route path="/api-tester" element={<ApiTester />} />
               <Route path="/reports" element={<Reports />} />
-              <Route path="/challenges" element={<Challenges />} />
+              {/* <Route path="/challenges" element={<Challenges />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
